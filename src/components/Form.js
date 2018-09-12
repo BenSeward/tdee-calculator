@@ -51,6 +51,10 @@ class Form extends Component {
   }
 
   render() {
+    const test = Calculation.calculateBMR('male', "26", "192", "190")
+
+    console.log(test);
+    
     return (
       <div className="App">
         <form>
