@@ -9,7 +9,11 @@ class Calculation {
         }
     }
 
-    static calculateTDEE(BMR, activity) {
+    static calculateTDEE(gender, age, height, weight, activityLevel) {
+        const calcBMR = Calculation.calculateBMR(gender, age, height, weight)
+        
+        console.log(calcBMR * activityLevel)
+        
     }
 }
 

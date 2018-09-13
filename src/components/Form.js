@@ -11,6 +11,7 @@ class Form extends Component {
       gender: '',
       height:'',
       weight: '',
+      activityLevel: '',
       value: ''
     }
 
@@ -44,20 +45,26 @@ class Form extends Component {
         this.setState({
           gender: event.target.value
         });
+      case 'activityLevel':
+        this.setState({
+          activityLevel: event.target.value
+        });
         break;
     }
+  }
 
-    console.log(event.target)
+  submitForm(event) {
+    debugger;
+    const test = Calculation.calculateTDEE(this.state.gender, this.state.age, this.state.height, this.state.weight, this.state.activityLevel)
+    event.preventDefault(test);
   }
 
   render() {
-    const test = Calculation.calculateBMR('male', "26", "192", "190")
-
-    console.log(test);
+    const test = Calculation.calculateTDEE(this.state.gender, this.state.age, this.state.height, this.state.weight, this.state.activityLevel)
     
     return (
       <div className="App">
-        <form>
+        <form onSubmit={(f)=>{this.submitForm(f)}}>
           <input 
             type="radio" 
             value={this.state.gender} 
@@ -99,8 +106,16 @@ class Form extends Component {
             onChange={this.handleChange} 
             name="weight"
             placeholder="Weight (kgs)" />
-          <input type="submit" 
-          value="Calculate" />
+          
+          <select name="activityLevel" onChange={this.handleChange} value={this.state.activityLevel}>
+            <option value="1.2">Sedentary</option>
+            <option value="1.375">Light Activity</option>
+            <option value="1.55">Moderate Activity</option>
+            <option value="1.725">Very Active</option>
+            <option value="1.9">Extremely Active</option>
+          </select>
+
+          <input type="submit" value="Submit" />
         </form>
       </div>
     );
