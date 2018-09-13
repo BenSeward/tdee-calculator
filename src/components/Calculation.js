@@ -11,9 +11,8 @@ class Calculation {
 
     static calculateTDEE(gender, age, height, weight, activityLevel) {
         const calcBMR = Calculation.calculateBMR(gender, age, height, weight)
-        
-        console.log(calcBMR * activityLevel)
-        
+
+        return calcBMR * activityLevel;
     }
 }
 

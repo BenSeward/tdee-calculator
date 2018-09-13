@@ -54,9 +54,9 @@ class Form extends Component {
   }
 
   submitForm(event) {
-    debugger;
     const test = Calculation.calculateTDEE(this.state.gender, this.state.age, this.state.height, this.state.weight, this.state.activityLevel)
-    event.preventDefault(test);
+    console.log('your TDEE is....' + test)
+    event.preventDefault();
   }
 
   render() {
