@@ -27,7 +27,11 @@ class Form extends Component {
       formItems: formItems
     })
 
-    document.getElementsByClassName('input')[0].classList.add('active');
+    document.getElementsByClassName('input')[0].classList.add('active-item');
+  }
+
+  selectActiveInput() {
+    
   }
 
   nextFormItem() {
@@ -37,9 +41,16 @@ class Form extends Component {
       })
     }
 
-    // console.log('clicked')
+    var inputItems = document.getElementsByClassName('input');
+    document.getElementsByClassName('active-item')[0].classList.remove('active-item');
+    inputItems[this.state.activeInput].classList.add('active-item');
 
-    document.getElementsByClassName('input').nextElementSibling.add('active');
+    // for ( var i = 0; i < inputItems.length; i++ ) (function(i){ 
+    //   inputItems[i].onclick = function() {
+    //       // do something
+    //       return console.log(i)
+    //   }
+    // })(i);
 
 
   }
@@ -95,27 +106,31 @@ class Form extends Component {
     const test = Calculation.calculateTDEE(this.state.gender, this.state.age, this.state.height, this.state.weight, this.state.activityLevel)
     
     return (
-      <div className="App">
-        <h2>{this.state.tdee ? this.state.tdee : ''}</h2>
+      <div className="form-inner">
+        <h2>{this.state.tdee ? 'Your TDEE IS... ' + this.state.tdee + ' calories per day.' : ''}</h2>
 
         <form className="control-form" onSubmit={(f)=>{this.submitForm(f)}}>
           <div className="input">
-            <input 
-              type="radio" 
-              value={this.state.gender} 
-              onChange={this.handleChange} 
-              name="gender" 
-              value="male"
-            />
-            <label for="gender">Male</label>
-            <input 
-              type="radio" 
-              value={this.state.gender} 
-              onChange={this.handleChange} 
-              name="gender" 
-              value="female"
-            />
-            <label for="gender">Female</label>
+            <label>
+              Male
+              <input 
+                type="radio" 
+                value={this.state.gender} 
+                onChange={this.handleChange} 
+                name="gender" 
+                value="male"
+              />
+            </label>
+            <label>
+              Female
+              <input 
+                type="radio" 
+                value={this.state.gender} 
+                onChange={this.handleChange} 
+                name="gender" 
+                value="female"
+              />
+            </label>
           </div>
           <input 
             type="text" 

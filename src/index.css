@@ -4,10 +4,47 @@ body {
   font-family: sans-serif;
 }
 
-.control-form .input {
+.App {
+  height: 100vh;
+}
+
+.form-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.control-form {
+  max-width: 800px;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.control-form input[type='submit'] {
   display: none;
 }
 
-.control-form .input.active {
-  display: block;
+.control-form input,
+.control-form select {
+  width: 100%;
+  padding: 0.75em 0;
+  margin-bottom: 1em;
+}
+
+.control-form .input {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-100px);
+  transition: all 0.5s ease-in-out;
+}
+
+.control-form .input.active-item {
+  position: relative;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0px);
+  transition: all 0.5s ease-in-out;
 }
