@@ -13,7 +13,7 @@ class Form extends Component {
       weight: '',
       activityLevel: '',
       value: '',
-      activeInput: 0
+      activeInput: 1
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -30,28 +30,24 @@ class Form extends Component {
     document.getElementsByClassName('input')[0].classList.add('active-item');
   }
 
-  selectActiveInput() {
-    
-  }
-
   nextFormItem() {
+    var inputItems = document.getElementsByClassName('input');
+    var finalStep = this.state.formItems - 1
+
     if(this.state.activeInput < this.state.formItems) {
       this.setState({
         activeInput: this.state.activeInput + 1,
       })
+      document.getElementsByClassName('active-item')[0].classList.remove('active-item');
+      inputItems[this.state.activeInput].classList.add('active-item');
     }
 
-    var inputItems = document.getElementsByClassName('input');
-    document.getElementsByClassName('active-item')[0].classList.remove('active-item');
-    inputItems[this.state.activeInput].classList.add('active-item');
-
-    // for ( var i = 0; i < inputItems.length; i++ ) (function(i){ 
-    //   inputItems[i].onclick = function() {
-    //       // do something
-    //       return console.log(i)
-    //   }
-    // })(i);
-
+    if(this.state.activeInput >= finalStep) {
+      //TODO: Hide next button on last item & show submit button
+      //document.getElementsByClassName('active-item')[0].classList.remove('active-item');
+      document.getElementById('next').remove();
+      document.getElementById('form-submit').classList.add('show-submit');
+    }
 
   }
 
@@ -81,6 +77,7 @@ class Form extends Component {
         this.setState({
           gender: event.target.value
         });
+        this.nextFormItem();
       case 'activityLevel':
         this.setState({
           activityLevel: event.target.value
@@ -98,10 +95,6 @@ class Form extends Component {
     event.preventDefault();
   }
 
-  addFormClass() {
-
-  }
-
   render() {
     const test = Calculation.calculateTDEE(this.state.gender, this.state.age, this.state.height, this.state.weight, this.state.activityLevel)
     
@@ -111,8 +104,8 @@ class Form extends Component {
 
         <form className="control-form" onSubmit={(f)=>{this.submitForm(f)}}>
           <div className="input">
-            <label>
-              Male
+            <label className="radio-item">
+              <span>Male</span>
               <input 
                 type="radio" 
                 value={this.state.gender} 
@@ -121,8 +114,8 @@ class Form extends Component {
                 value="male"
               />
             </label>
-            <label>
-              Female
+            <label className="radio-item">
+              <span>Female</span>
               <input 
                 type="radio" 
                 value={this.state.gender} 
@@ -173,9 +166,9 @@ class Form extends Component {
             <option value="1.9">Extremely Active</option>
           </select>
 
-          <input className="btn btn-submit" type="submit" value="Submit" />
+          <button onClick={()=>{this.nextFormItem()}} id="next" className="btn next-btn" type="button"><ion-icon name="arrow-forward"></ion-icon></button>
+          <input id="form-submit" className="btn btn-submit" type="submit" value="Submit" />
         </form>
-        <button onClick={()=>{this.nextFormItem()}} id="next" type="button">Next Form Item</button>
       </div>
     );
   }
